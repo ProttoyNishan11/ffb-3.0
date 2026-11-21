@@ -1,7 +1,10 @@
 const modal = document.getElementById('modeModal');
 const roomField = document.getElementById('participantRoomField');
 let currentRole = 'host';
-const isGitHubPages = location.hostname.endsWith('.github.io');
+const isStaticHosting =
+  location.hostname.endsWith('.github.io') ||
+  location.hostname.endsWith('.web.app') ||
+  location.hostname.endsWith('.firebaseapp.com');
 const localModeButton = document.getElementById('chooseLocal');
 if (isGitHubPages && localModeButton) {
   localModeButton.disabled = true;
