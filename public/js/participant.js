@@ -126,8 +126,15 @@ function showJoinPanel() {
 $('participantJoinButton').addEventListener('click', () => {
   const code = $('participantJoinInput').value.trim().toUpperCase().replace(/[^A-Z0-9-]/g, '');
   if (code.length < 6) { $('participantJoinError').textContent = 'সঠিক Room Code লিখুন।'; return; }
-  location.href = `/participant?mode=cloud&room=${encodeURIComponent(code)}`;
-});
+  const target = new URL(
+  "participant.html",
+  window.location.href
+);
+
+target.searchParams.set("mode", "cloud");
+target.searchParams.set("room", code);
+
+window.location.href = target.toString();
 $('participantJoinInput').addEventListener('keydown', event => {
   if (event.key === 'Enter') $('participantJoinButton').click();
 });
