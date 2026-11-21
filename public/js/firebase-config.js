@@ -1,12 +1,13 @@
 // Firebase Web App configuration. These values identify the Firebase project;
 // database permissions must be enforced by database.rules.json, not by hiding this file.
 // Paste the config object from Firebase Console > Project settings > Your apps > Web app.
-window.FFB_FIREBASE_CONFIG = {
-  apiKey: 'YOUR_FIREBASE_API_KEY',
-  authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
-  databaseURL: 'https://YOUR_DATABASE_NAME-default-rtdb.YOUR_REGION.firebasedatabase.app',
-  projectId: 'YOUR_PROJECT_ID',
-  storageBucket: 'YOUR_PROJECT_ID.firebasestorage.app',
-  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-  appId: 'YOUR_FIREBASE_APP_ID'
+window firebaseConfig = {
+  apiKey: "AIzaSyCYRfhKISSvgDO2EHt45GNp9Z-xabJwyzU",
+  authDomain: "ffb-3-75311.firebaseapp.com",
+  databaseURL: "https://ffb-3-75311-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "ffb-3-75311",
+  storageBucket: "ffb-3-75311.firebasestorage.app",
+  messagingSenderId: "1002139171777",
+  appId: "1:1002139171777:web:92fc94b0c8719807028d40",
+  measurementId: "G-Z4X6SSZ6T1"
 };
