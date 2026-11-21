@@ -1,13 +1,13 @@
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js';
 import {
-  getAuth, signInWithEmailAndPassword, signInAnonymously,
-  onAuthStateChanged, signOut
+  getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,
+  signInAnonymously, onAuthStateChanged, signOut
 } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js';
 import {
   getDatabase, ref, get, set, update, onValue, serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js';
 
-const config = window.FFB_FIREBASE_CONFIG || {};
+const config = window.FFB_FIREBASE_CONFIG || window.firebaseConfig || {};
 let app;
 let auth;
 let db;
@@ -28,6 +28,7 @@ export function getAuthInstance() { return auth; }
 export function getDatabaseInstance() { return db; }
 export const authState = callback => onAuthStateChanged(auth, callback);
 export const hostSignIn = (email, password) => signInWithEmailAndPassword(auth, email, password);
+export const hostSignInWithGoogle = () => signInWithPopup(auth, new GoogleAuthProvider());
 export const participantSignIn = () => signInAnonymously(auth);
 export const signOutUser = () => signOut(auth);
 

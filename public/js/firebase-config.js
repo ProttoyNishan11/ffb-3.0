@@ -10,3 +10,7 @@ window.firebaseConfig = {
   messagingSenderId: "1002139171777",
   appId: "1:1002139171777:web:92fc94b0c8719807028d40",
   measurementId: "G-Z4X6SSZ6T1"
+
+
+// Namespaced alias used by FFB 3.0's Cloud adapter.
+window.FFB_FIREBASE_CONFIG = window.firebaseConfig;

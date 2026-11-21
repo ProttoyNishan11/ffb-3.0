@@ -256,6 +256,13 @@ async function initCloud() {
     try { await adapter.hostSignIn($('cloudHostEmail').value.trim(), $('cloudHostPassword').value); }
     catch (error) { showError('cloudLoginError', friendlyFirebaseError(error)); }
   });
+  $('googleSignInButton').addEventListener('click', async () => {
+    clearError('cloudLoginError');
+    $('googleSignInButton').disabled = true;
+    try { await adapter.hostSignInWithGoogle(); }
+    catch (error) { showError('cloudLoginError', friendlyFirebaseError(error)); }
+    finally { $('googleSignInButton').disabled = false; }
+  });
   adapter.authState(async user => {
     if (!user || user.isAnonymous) {
       cloudUser = null; dashboard.hidden = true; cloudLoginPanel.hidden = false;
@@ -271,7 +278,12 @@ function friendlyFirebaseError(error) {
     'auth/user-not-found': 'এই Host account পাওয়া যায়নি।',
     'auth/wrong-password': 'Password সঠিক নয়।',
     'auth/too-many-requests': 'অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন।',
-    'auth/network-request-failed': 'Internet connection পরীক্ষা করুন।'
+    'auth/network-request-failed': 'Internet connection পরীক্ষা করুন।',
+    'auth/unauthorized-domain': 'Firebase Authentication-এর Authorized domains-এ এই website domain যোগ করুন।',
+    'auth/popup-blocked': 'Browser popup block করেছে। এই website-এর জন্য popup অনুমতি দিন।',
+    'auth/popup-closed-by-user': 'Google sign-in window বন্ধ করা হয়েছে। আবার চেষ্টা করুন।',
+    'auth/operation-not-allowed': 'Firebase Console-এ Google sign-in provider enable করুন।',
+    'auth/account-exists-with-different-credential': 'এই email অন্য sign-in পদ্ধতিতে যুক্ত আছে। Firebase Authentication-এর account settings পরীক্ষা করুন।'
   };
   return map[error.code] || error.message || 'Firebase request failed.';
 }

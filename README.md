@@ -16,7 +16,7 @@
 
 ## Important architecture note
 
-GitHub Pages is a static host and cannot run the Node.js/Socket.IO local server. **Local Wi-Fi mode must be started on the Host computer with Node.js.** Firebase Cloud mode can be deployed to Firebase Hosting and runs in normal browsers. The same project folder contains both modes.
+GitHub Pages is a static host and cannot run the Node.js/Socket.IO local server. **Local Wi-Fi mode must be started on the Host computer with Node.js.** Firebase Cloud mode can be deployed to Firebase Hosting and runs in normal browsers. The same project folder contains both modes. All browser files must remain inside `public/`; both `server.js` and `firebase.json` serve that directory.
 
 ## Requirements
 
@@ -61,16 +61,18 @@ Default Host name: `Prottoy Nishan`. Set your own Local Host password in `.env`.
 3. Copy the Firebase Web App configuration into `public/js/firebase-config.js`.
 4. Create a **Realtime Database** and copy its exact database URL into the `databaseURL` field in `firebase-config.js`.
 5. In **Authentication → Sign-in method**, enable:
-   - Email/Password (for the Host)
+   - Email/Password (for Host sign-in, as an alternative)
+   - Google (for Host sign-in using the Google button on the Cloud Host page)
    - Anonymous (for Participants)
-6. In **Authentication → Users**, create the Host account with your email and a strong password.
+6. For Email/Password sign-in, create the Host account with your email and a strong password. For Google sign-in, use the Google account you want to host with; Firebase creates its user on first sign-in.
+7. For Google sign-in, add your Firebase Hosting domain under **Authentication → Settings → Authorized domains**.
 
 Firebase web config values identify the project and are expected to be present in the frontend. They are not database authorization. Security is provided by the Realtime Database rules below.
 
 ### 2. Get the Host UID and set database rules
 
 1. Deploy the Hosting app or run Local mode and open `http://localhost:3000/host?mode=cloud`.
-2. Sign in using the Host email and password created in Firebase Authentication.
+2. Sign in using the configured Host account (Email/Password or Google).
 3. The dashboard displays **Your Firebase Host UID**.
 4. Copy that UID and replace every occurrence of `REPLACE_WITH_HOST_UID` in `firebase/database.rules.json` with the exact UID.
 5. Install Firebase CLI if needed, then sign in:
