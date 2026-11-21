@@ -95,8 +95,11 @@ async function joinCloud(roomId) {
   const adapter = await import('./cloud-adapter.js');
   adapter.initializeFirebase();
   const auth = adapter.getAuthInstance();
-  if (!auth.currentUser) await adapter.participantSignIn();
-  const meta = await adapter.getRoomMeta(roomId);
+  if (!auth.currentUser || !auth.currentUser.isAnonymous) {
+  await adapter.participantSignIn();
+}
+
+const meta = await adapter.joinRoom(roomId);
   if (!meta) throw new Error('এই Room Code পাওয়া যায়নি।');
   if (meta.status !== 'active') throw new Error('Host এই Room বন্ধ করে দিয়েছেন।');
   adapter.watchRoomMeta(roomId, value => {
