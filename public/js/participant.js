@@ -14,8 +14,8 @@ function setConnection(label, connected) {
 
 function parseAnswer(answer) {
   if (typeof answer === 'string') {
-    const clean = answer.replace(/^\\s*\\d+\\s*[.।-]?\\s*/, '').trim();
-    const match = clean.match(/\\s*[–—-]\\s*(\\d+)\\s*পয়েন্ট\\s*$/);
+    const clean = answer.replace(/^\s*\d+\s*[.।-]?\s*/, '').trim();
+    const match = clean.match(/\s*[–—-]\s*(\d+)\s*পয়েন্ট\s*$/);
     return match
       ? { text: clean.slice(0, match.index).trim(), points: Number(match[1]) }
       : { text: clean, points: null };
