@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#24105b">
+  <title>Family Feud Bangladesh</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="home-page">
+  <main class="home-shell">
+    <div class="brand-mark">🇧🇩</div>
+    <p class="eyebrow">BENGALI EDITION</p>
+    <h1>Family Feud<br><span>Bangladesh</span></h1>
+    <p class="home-intro">একসাথে খেলুন, উত্তর খুঁজুন, আনন্দ ভাগ করে নিন!</p>
+
+    <section class="role-grid" aria-label="Choose your role">
+      <button class="role-card host-card" id="openHostModes" type="button">
+        <span class="role-icon">🎙️</span>
+        <span class="role-title">Admin / Host</span>
+        <span class="role-description">গেম পরিচালনা করুন</span>
+        <span class="role-action">Enter Host Area <span aria-hidden="true">→</span></span>
+      </button>
+      <button class="role-card participant-card" id="openParticipantModes" type="button">
+        <span class="role-icon">👥</span>
+        <span class="role-title">Participants</span>
+        <span class="role-description">খেলায় যোগ দিন</span>
+        <span class="role-action">Join the Game <span aria-hidden="true">→</span></span>
+      </button>
+    </section>
+    <section class="mode-explainer">
+      <div><span>📶</span><strong>Local Wi-Fi</strong><small>একই Wi-Fi নেটওয়ার্কে</small></div>
+      <div><span>☁️</span><strong>Online Cloud</strong><small>যেকোনো নেটওয়ার্ক থেকে</small></div>
+    </section>
+    <footer>© Family Feud Bangladesh · Created by Prottoy Nishan</footer>
+  </main>
+
+  <div class="modal-backdrop" id="modeModal" hidden>
+    <section class="login-modal mode-modal" role="dialog" aria-modal="true" aria-labelledby="modeTitle">
+      <button class="modal-close" id="closeModes" type="button" aria-label="Close">×</button>
+      <div class="modal-icon" id="modeIcon">🎮</div>
+      <p class="eyebrow">CHOOSE CONNECTION</p>
+      <h2 id="modeTitle">Select a play mode</h2>
+      <p class="muted" id="modeDescription">আপনি কীভাবে খেলতে চান?</p>
+      <div class="mode-choice-grid">
+        <button class="mode-choice" id="chooseLocal" type="button"><span>📶</span><strong>Local Wi-Fi</strong><small>Same network</small></button>
+        <button class="mode-choice" id="chooseCloud" type="button"><span>☁️</span><strong>Online Cloud</strong><small>Play from anywhere</small></button>
+      </div>
+      <div class="participant-room-field" id="participantRoomField" hidden>
+        <label for="participantRoomCode">Room code</label>
+        <input id="participantRoomCode" placeholder="e.g. 7K29XM4P" maxlength="12" autocomplete="off">
+        <p class="form-error" id="roomCodeError" role="alert"></p>
+        <button class="primary-button full-width" id="joinCloudRoom" type="button">Join Online Game</button>
+      </div>
+      <p class="small-note" id="modeFootnote">Local Wi-Fi mode চালাতে Host-এর কম্পিউটারে FFB server চালু থাকতে হবে।</p>
+    </section>
+  </div>
+  <script src="/home.js"></script>
+</body>
+</html>
