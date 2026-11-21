@@ -1,0 +1,21 @@
+{
+  "name": "family-feud-bangladesh",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Family Feud Bangladesh — dual-mode local Wi-Fi and Firebase Cloud host-controlled game",
+  "main": "server.js",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node scripts/ensure-question-bank.js && node server.js",
+    "start:server": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node scripts/verify-project.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "socket.io": "^4.8.1",
+    "helmet": "^8.1.0"
+  }
+}

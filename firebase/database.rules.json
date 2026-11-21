@@ -1,0 +1,30 @@
+{
+  
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "questionBank": {
+      "$hostUid": {
+        ".read": "auth != null && auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1' && auth.uid === $hostUid",
+        ".write": "auth != null && auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1' && auth.uid === $hostUid"
+      }
+    },
+    "rooms": {
+      "$roomId": {
+        "meta": {
+          ".read": "auth != null && (auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1' || auth.token.firebase.sign_in_provider === 'anonymous')",
+          ".write": "auth != null && auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1'",
+          ".validate": "newData.hasChildren(['hostUid', 'status']) && newData.child('hostUid').val() === 'HDZD844OLUSjEMB9THKpPWOQkEj1' && (newData.child('status').val() === 'active' || newData.child('status').val() === 'closed')"
+        },
+        "hostState": {
+          ".read": "auth != null && auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1'",
+          ".write": "auth != null && auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1'"
+        },
+        "publicDisplay": {
+          ".read": "auth != null && (auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1' || auth.token.firebase.sign_in_provider === 'anonymous')",
+          ".write": "auth != null && auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1'"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.map"
+    ],
+    "rewrites": [
+      { "source": "/host", "destination": "/host.html" },
+      { "source": "/participant", "destination": "/participant.html" }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [{ "key": "Cache-Control", "value": "public,max-age=300" }]
+      }
+    ]
+  },
+  "database": {
+    "rules": "firebase/database.rules.json"
+  }
+}
