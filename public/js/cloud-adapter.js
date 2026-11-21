@@ -101,3 +101,26 @@ export async function writeRoomState(roomId, hostState, publicDisplay) {
 export async function writePublicDisplay(roomId, publicDisplay) {
   await set(ref(db, `rooms/${roomId}/publicDisplay`), publicDisplay);
 }
+
+export async function joinRoom(roomId) {
+  const user = auth.currentUser;
+
+  if (!user || !user.isAnonymous) {
+    throw new Error("Participant authentication required.");
+  }
+
+  const meta = await getRoomMeta(roomId);
+
+  if (!meta || meta.status !== "active") {
+    throw new Error("This game room is unavailable.");
+  }
+
+  await set(
+    ref(db, `rooms/${roomId}/participants/${user.uid}`),
+    {
+      joinedAt: serverTimestamp()
+    }
+  );
+
+  return meta;
+}
