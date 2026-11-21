@@ -108,7 +108,7 @@ if (!hostPage.includes('id="googleSignInButton"') ||
 const sample = Array.from(
   { length: 10 },
   (_, i) => `<div class="question-card"><h2>প্রশ্ন ${i + 1}: নমুনা প্রশ্ন?</h2><ol><li><span>1. নমুনা উত্তর – 20 পয়েন্ট</span></li></ol></div>`
-).join('\\n');
+).join('\n');
 const parsed = parseSet(sample, 1);
 if (parsed.questions.length !== 10 || parsed.questions[0].answers[0].points !== 20) {
   throw new Error('Question parser validation failed.');
