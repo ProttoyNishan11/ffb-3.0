@@ -74,7 +74,7 @@ Firebase web config values identify the project and are expected to be present i
 1. Deploy the Hosting app or run Local mode and open `http://localhost:3000/host?mode=cloud`.
 2. Sign in using the configured Host account (Email/Password or Google).
 3. The dashboard displays **Your Firebase Host UID**.
-4. Copy that UID and replace every occurrence of `REPLACE_WITH_HOST_UID` in `firebase/database.rules.json` with the exact UID.
+4. Compare that UID with the Host UID already written in `firebase/database.rules.json` (currently `HDZD844OLUSjEMB9THKpPWOQkEj1`). If they differ, replace every occurrence of the old UID with the exact UID shown in the dashboard, then deploy the rules again. The UID is an account identifier, not a password or secret.
 5. Install Firebase CLI if needed, then sign in:
 
    ```bash
@@ -89,7 +89,7 @@ Firebase web config values identify the project and are expected to be present i
    firebase deploy --only database
    ```
 
-The provided rules deny access by default. Only the configured Host UID can read/write the private question bank, Host state, and room controls. Participants sign in anonymously and can read only room metadata and the public display. Never deploy the placeholder UID rules for a real game; replace the placeholder first.
+The provided rules deny access by default. Only the configured Host UID can read/write the private question bank, Host state, and room controls. Participants sign in anonymously, register their UID inside an active room, and can then read that room's public display. Unregistered guests cannot read the live board. Verify that the UID in the rules matches the account you actually use to sign in before importing the bank or hosting.
 
 ### 3. Import the private question bank
 

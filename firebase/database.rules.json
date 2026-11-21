@@ -1,5 +1,4 @@
 {
-  
   "rules": {
     ".read": false,
     ".write": false,
@@ -21,8 +20,16 @@
           ".write": "auth != null && auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1'"
         },
         "publicDisplay": {
-          ".read": "auth != null && (auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1' || auth.token.firebase.sign_in_provider === 'anonymous')",
+          ".read": "auth != null && (auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1' || (auth.token.firebase.sign_in_provider === 'anonymous' && root.child('rooms').child($roomId).child('participants').child(auth.uid).exists()))",
           ".write": "auth != null && auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1'"
+        },
+        "participants": {
+          ".read": "auth != null && auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1'",
+          "$participantUid": {
+            ".read": "auth != null && (auth.uid === 'HDZD844OLUSjEMB9THKpPWOQkEj1' || auth.uid === $participantUid)",
+            ".write": "auth != null && auth.uid === $participantUid && auth.token.firebase.sign_in_provider === 'anonymous' && root.child('rooms').child($roomId).child('meta').child('status').val() === 'active'",
+            ".validate": "newData.hasChildren(['joinedAt']) && newData.numChildren() === 1 && newData.child('joinedAt').isNumber()"
+          }
         }
       }
     }

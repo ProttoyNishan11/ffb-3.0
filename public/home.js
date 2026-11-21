@@ -1,9 +1,14 @@
 const modal = document.getElementById('modeModal');
 const roomField = document.getElementById('participantRoomField');
 let currentRole = 'host';
-const isGitHubPages = location.hostname.endsWith('.github.io');
+
+const isStaticHosting =
+  location.hostname.endsWith('.github.io') ||
+  location.hostname.endsWith('.web.app') ||
+  location.hostname.endsWith('.firebaseapp.com');
+
 const localModeButton = document.getElementById('chooseLocal');
-if (isGitHubPages && localModeButton) {
+if (isStaticHosting && localModeButton) {
   localModeButton.disabled = true;
   localModeButton.title = 'Local Wi-Fi mode requires the Node.js server.';
   const note = localModeButton.querySelector('small');
@@ -32,9 +37,10 @@ modal.addEventListener('click', event => { if (event.target === modal) modal.hid
 document.addEventListener('keydown', event => { if (event.key === 'Escape') modal.hidden = true; });
 
 document.getElementById('chooseLocal').addEventListener('click', () => {
-  if (isGitHubPages) return;
+  if (isStaticHosting) return;
   window.location.href = currentRole === 'host' ? 'host.html?mode=local' : 'participant.html?mode=local';
 });
+
 document.getElementById('chooseCloud').addEventListener('click', () => {
   if (currentRole === 'host') {
     window.location.href = 'host.html?mode=cloud';
@@ -43,14 +49,19 @@ document.getElementById('chooseCloud').addEventListener('click', () => {
   roomField.hidden = false;
   document.getElementById('participantRoomCode').focus();
 });
+
 document.getElementById('joinCloudRoom').addEventListener('click', () => {
   const code = document.getElementById('participantRoomCode').value.trim().toUpperCase().replace(/[^A-Z0-9-]/g, '');
   if (code.length < 6) {
     document.getElementById('roomCodeError').textContent = 'সঠিক Room Code লিখুন।';
     return;
   }
-  window.location.href = `participant.html?mode=cloud&room=${encodeURIComponent(code)}`;
+  const target = new URL('participant.html', window.location.href);
+  target.searchParams.set('mode', 'cloud');
+  target.searchParams.set('room', code);
+  window.location.href = target.toString();
 });
+
 document.getElementById('participantRoomCode').addEventListener('keydown', event => {
   if (event.key === 'Enter') document.getElementById('joinCloudRoom').click();
 });
