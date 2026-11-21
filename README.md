@@ -164,3 +164,17 @@ This checks required files, the default-deny Firebase rules and the question par
 ## H. Current scope / not included
 
 This release implements the Host-controlled question-and-answer reveal system from the original FFB idea. It does not yet include automatic team scorekeeping, strike indicators, timers, buzzer input, or a participant voting system. Participants answer verbally; the Host controls what is revealed.
+
+
+## I. GitHub Pages deployment (Online Cloud mode)
+
+This repository includes a GitHub Actions workflow that publishes the contents of `public/` to GitHub Pages. GitHub Pages is static hosting, so **only Online Cloud mode works there**; Local Wi-Fi mode requires the Node.js server on the Host computer.
+
+1. Open **Repository Settings → Pages**.
+2. Under **Build and deployment → Source**, select **GitHub Actions**.
+3. Push to `main`. The **Deploy to GitHub Pages** workflow publishes the site automatically.
+4. Add `prottoynishan11.github.io` to **Firebase Authentication → Settings → Authorized domains**.
+5. Open `https://prottoynishan11.github.io/ffb-3.0/`, choose **Online Cloud**, sign in as Host, and create a room.
+
+The question bank must still be imported into Firebase by the Host. The Host UID in the deployed Realtime Database rules must match the account used to sign in. Participant links are generated using the GitHub Pages project path, so they keep the `/ffb-3.0/` prefix.
+

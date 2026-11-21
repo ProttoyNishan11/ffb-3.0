@@ -315,7 +315,10 @@ async function attachCloudRoom(roomId) {
   $('cloudRoomStatus').textContent = 'Participants can now join using the invitation link.';
   $('createRoomButton').hidden = true;
   $('closeRoomButton').hidden = false;
-  $('participantUrl').textContent = `${location.origin}/participant?mode=cloud&room=${roomId}`;
+  const participantLink = new URL('participant.html', location.href);
+  participantLink.searchParams.set('mode', 'cloud');
+  participantLink.searchParams.set('room', roomId);
+  $('participantUrl').textContent = participantLink.toString();
   if (stopDisplayListener) stopDisplayListener();
   stopDisplayListener = cloudApi.watchRoomDisplay(roomId, state => applyState(state), error => showError('bankImportMessage', friendlyFirebaseError(error)));
 }
@@ -375,7 +378,7 @@ $('logoutButton').addEventListener('click', async () => {
   try {
     if (mode === 'local') await localPost('/api/local/logout');
     else if (cloudApi) await cloudApi.signOutUser();
-    window.location.href = '/';
+    window.location.href = 'index.html';
   } catch (error) { window.alert(error.message); }
 });
 

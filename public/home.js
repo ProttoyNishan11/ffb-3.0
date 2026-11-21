@@ -1,6 +1,14 @@
 const modal = document.getElementById('modeModal');
 const roomField = document.getElementById('participantRoomField');
 let currentRole = 'host';
+const isGitHubPages = location.hostname.endsWith('.github.io');
+const localModeButton = document.getElementById('chooseLocal');
+if (isGitHubPages && localModeButton) {
+  localModeButton.disabled = true;
+  localModeButton.title = 'Local Wi-Fi mode requires the Node.js server.';
+  const note = localModeButton.querySelector('small');
+  if (note) note.textContent = 'Requires Node.js server';
+}
 
 function openModes(role) {
   currentRole = role;
@@ -24,11 +32,12 @@ modal.addEventListener('click', event => { if (event.target === modal) modal.hid
 document.addEventListener('keydown', event => { if (event.key === 'Escape') modal.hidden = true; });
 
 document.getElementById('chooseLocal').addEventListener('click', () => {
-  window.location.href = currentRole === 'host' ? '/host?mode=local' : '/participant?mode=local';
+  if (isGitHubPages) return;
+  window.location.href = currentRole === 'host' ? 'host.html?mode=local' : 'participant.html?mode=local';
 });
 document.getElementById('chooseCloud').addEventListener('click', () => {
   if (currentRole === 'host') {
-    window.location.href = '/host?mode=cloud';
+    window.location.href = 'host.html?mode=cloud';
     return;
   }
   roomField.hidden = false;
@@ -40,7 +49,7 @@ document.getElementById('joinCloudRoom').addEventListener('click', () => {
     document.getElementById('roomCodeError').textContent = 'সঠিক Room Code লিখুন।';
     return;
   }
-  window.location.href = `/participant?mode=cloud&room=${encodeURIComponent(code)}`;
+  window.location.href = `participant.html?mode=cloud&room=${encodeURIComponent(code)}`;
 });
 document.getElementById('participantRoomCode').addEventListener('keydown', event => {
   if (event.key === 'Enter') document.getElementById('joinCloudRoom').click();

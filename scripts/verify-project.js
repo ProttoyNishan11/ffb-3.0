@@ -4,7 +4,7 @@ const { parseSet, parseAnswer } = require('./ensure-question-bank');
 const root = path.join(__dirname, '..');
 
 const required = [
-  'server.js', 'package.json', '.env.example', '.gitignore', 'firebase.json',
+  'server.js', 'package.json', '.env.example', '.gitignore', '.github/workflows/deploy-pages.yml', 'firebase.json',
   'firebase/database.rules.json',
   'public/index.html', 'public/styles.css', 'public/home.js',
   'public/host.html', 'public/participant.html',
@@ -55,6 +55,11 @@ if (!config.includes('FFB_FIREBASE_CONFIG') ||
   throw new Error('Firebase config global does not match the Cloud adapter.');
 }
 
+const homeScript = fs.readFileSync(path.join(root, 'public/home.js'), 'utf8');
+if (!homeScript.includes('host.html?mode=cloud') || !homeScript.includes('participant.html?mode=cloud')) {
+  throw new Error('Static hosting links must use project-relative HTML routes.');
+}
+
 const hostPage = fs.readFileSync(path.join(root, 'public/host.html'), 'utf8');
 const hostScript = fs.readFileSync(path.join(root, 'public/js/host.js'), 'utf8');
 if (!hostPage.includes('id="googleSignInButton"') ||
@@ -76,5 +81,10 @@ if (answer.text !== 'নমুনা উত্তর' || answer.points !== 25) {
   throw new Error('Answer parser validation failed.');
 }
 
-console.log('FFB 3.0 project structure, Firebase rules, auth wiring and question parser checks passed.');
+const pagesWorkflow = fs.readFileSync(path.join(root, '.github/workflows/deploy-pages.yml'), 'utf8');
+if (!pagesWorkflow.includes('path: public') || !pagesWorkflow.includes('actions/deploy-pages@v4')) {
+  throw new Error('GitHub Pages workflow must publish the public directory.');
+}
+
+console.log('FFB 3.0 project structure, Firebase rules, auth wiring, Pages routing and question parser checks passed.');
 console.log('Reminder: run npm start once with internet access to download the 10 private question sets.');
